@@ -1,0 +1,36 @@
+.btn-auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 4px 8px;
+  box-shadow: 0px 0px 3px #ccc;
+  border-radius: 5px;
+  border: none;
+
+  font-size: 20px;
+
+  &--login {
+    background-color: #f8f9fa;
+    color: #ff6666;
+
+    &:hover {
+      background-color: #ff6666;
+      color: #ffffff;
+    }
+  }
+
+  &--register {
+    background-color: #ff6666;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #f8f9fa;
+      color: #ff6666;
+    }
+  }
+
+  &:active {
+    box-shadow: 0px 0px 5px #333;
+  }
+}

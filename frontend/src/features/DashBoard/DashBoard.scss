@@ -1,0 +1,40 @@
+.dashboard {
+  &--intro {
+    background-color: #ff8080;
+    color: white;
+  }
+
+  &--courses {
+    background-color: #ffd140;
+    color: black;
+  }
+
+  &--posts {
+    background-color: #24a19e;
+    color: white;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 50px 30px;
+  }
+
+  &__content {
+    width: 50%;
+
+    &--description {
+      width: 40%;
+      margin-left: 30px;
+    }
+
+    &--list {
+      margin-left: 30px;
+      width: 60%;
+    }
+  }
+}

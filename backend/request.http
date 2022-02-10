@@ -1,0 +1,98 @@
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+###
+
+POST http://localhost:5000/api/auth/login 
+Content-Type: application/json
+
+{
+  "username": "jim",
+  "password": "jim"
+}
+
+###
+
+GET http://localhost:5000/api/auth/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWYyNmY0ODA5ZGU5NzRlNWM3ZDA5ZGUiLCJpYXQiOjE2NDM0NTM0NzR9.wT3r6V2U9dVEiAornPtvfXx4QQxAUlLB7lQyHDQZiEo
+
+###
+
+GET http://localhost:5000/api/courses/home
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWYyNmY0ODA5ZGU5NzRlNWM3ZDA5ZGUiLCJpYXQiOjE2NDM0NTM0NzR9.wT3r6V2U9dVEiAornPtvfXx4QQxAUlLB7lQyHDQZiEo
+
+###
+
+GET http://localhost:5000/api/courses/trash
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWYyNmY0ODA5ZGU5NzRlNWM3ZDA5ZGUiLCJpYXQiOjE2NDM0NTM0NzR9.wT3r6V2U9dVEiAornPtvfXx4QQxAUlLB7lQyHDQZiEo
+
+###
+
+GET http://localhost:5000/api/courses/61fce4802d5be24ac6152a79
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWYyNmY0ODA5ZGU5NzRlNWM3ZDA5ZGUiLCJpYXQiOjE2NDM0NTM0NzR9.wT3r6V2U9dVEiAornPtvfXx4QQxAUlLB7lQyHDQZiEo
+
+
+###
+
+POST http://localhost:5000/api/courses/add
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWYyNmY0ODA5ZGU5NzRlNWM3ZDA5ZGUiLCJpYXQiOjE2NDM0NTM0NzR9.wT3r6V2U9dVEiAornPtvfXx4QQxAUlLB7lQyHDQZiEo
+
+{
+  "title": "HTML CSS 3",
+  "description": "HTML CSS  3",
+  "url": "gg.com",
+  "content": "Bài học đầu tiên 3",
+  "hashtags": ["frontent", "html", "css"]
+}
+
+###
+
+PUT http://localhost:5000/api/courses/61ff7801d2f1e8e680dfee8b/comment
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWYyNmY0ODA5ZGU5NzRlNWM3ZDA5ZGUiLCJpYXQiOjE2NDQxMzI2NDl9.uubClgarF8ZEQg80U6s1KIVAk-sw6iGNiFSnGFxbGYk
+
+{
+  "body": "tuyệt vời",
+  "rate": 5
+}
+
+###
+
+DELETE http://localhost:5000/api/courses/61fce4802d5be24ac6152a79/remove
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWYyNmY0ODA5ZGU5NzRlNWM3ZDA5ZGUiLCJpYXQiOjE2NDM0NTM0NzR9.wT3r6V2U9dVEiAornPtvfXx4QQxAUlLB7lQyHDQZiEo
+
+###
+
+POST http://localhost:5000/api/category/
+Content-Type: application/json
+
+{
+  "value": "Kinh nghiệm"
+}
+
+###
+
+PUT http://localhost:5000/api/category/5
+Content-Type: application/json
+
+{
+  "value": "Kinh nghiệm"
+}
+
+###
+
+DELETE http://localhost:5000/api/category/4
+
+###
+
+GET http://localhost:5000/api/category/

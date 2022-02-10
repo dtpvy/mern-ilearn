@@ -1,0 +1,51 @@
+.slider {
+  &__col {
+    margin: 0 5px;
+  }
+
+  &__toggle {
+    &--hide {
+      display: none;
+    }
+    &--show {
+      animation: fadded 0.5s ease-in-out;
+    }
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__button {
+    font-size: 50px;
+    color: #e37b7d;
+    background-color: #f8f9fa;
+
+    box-shadow: 0px 0px 3px #ccc;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #ffffff;
+    }
+
+    &:active {
+      box-shadow: 0px 0px 10px #787878;
+    }
+  }
+}
+
+@keyframes fadded {
+  from {
+    opacity: 0;
+    transform: scale(0.7, 0.7);
+  }
+  to {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
