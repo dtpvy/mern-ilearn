@@ -1,0 +1,19 @@
+.gridcourses {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+
+  &__col {
+    padding: 16px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+
+    width: 210px;
+
+    &:hover {
+      box-shadow: 0px 0px 10px #333;
+      cursor: pointer;
+    }
+  }
+}

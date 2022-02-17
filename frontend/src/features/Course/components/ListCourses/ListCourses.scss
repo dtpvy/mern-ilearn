@@ -1,0 +1,18 @@
+.listcourses {
+  display: flex;
+  flex-flow: column wrap;
+
+  &__row {
+    padding: 16px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+
+    width: 100%;
+
+    &:hover {
+      box-shadow: 0px 0px 10px #333;
+      cursor: pointer;
+    }
+  }
+}

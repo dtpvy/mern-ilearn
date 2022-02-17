@@ -1,6 +1,6 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import Loading from 'components/Loading';
-import { dashboard } from 'features/Course/CourseSlice';
+import { courses } from 'features/DashBoard/DashboardSlice';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BsStarFill } from "react-icons/bs";
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,10 +23,10 @@ function ListItem(props) {
   }
 
   const fetchData = useCallback(async () => {
-    const actionResult = await dispatch(dashboard());
+    const actionResult = await dispatch(courses());
     const currentUser = unwrapResult(actionResult);
 
-    setItems(currentUser.items);;
+    setItems(currentUser.courses);;
     setLoading(false);
   }, [dispatch]);
 

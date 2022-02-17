@@ -16,7 +16,7 @@ class CourseController {
   // GET /
   async showAll(req, res) {
     try {
-      const courses = await Course.find({});
+      const courses = await Course.find({}).populate('author');
       res.json({ success: true, courses })
     } catch (error) {
       console.log(error)
@@ -28,7 +28,7 @@ class CourseController {
   async showCourse(req, res) {
     const id = req.params.id;
     try {
-      const course = await Course.findOne({ _id: id });
+      const course = await Course.findOne({ _id: id }).populate('author');
       res.json({ success: true, course })
     } catch (error) {
       console.log(error)

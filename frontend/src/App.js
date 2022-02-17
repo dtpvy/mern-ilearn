@@ -27,10 +27,6 @@ function App() {
               <ProtectedRoute component={<Course />} />
             } />
 
-            <Route path='/:username/*' element={
-              <ProtectedRoute component={<Course />} />
-            } />
-
             <Route path='/' element={
               <ProtectedRoute component={<Dashboard />} />
             } />

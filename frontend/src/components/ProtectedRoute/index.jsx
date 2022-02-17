@@ -64,8 +64,8 @@ function ProtectedRoute({ component }) {
               <Header isLogin={isLogin} onClick={handleClick} show={show} />
               <div style={{ paddingTop: 64 }} >
                 {component}
+                <Footer />
               </div>
-              <Footer />
             </>
           ) : (
             <Navigate to="/login" />

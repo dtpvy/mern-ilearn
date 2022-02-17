@@ -32,7 +32,7 @@ function Header(props) {
                     className={({ isActive }) =>
                       isActive ? "header__link header__link--isActive" : "header__link"
                     }
-                    to="courses"
+                    to="/courses"
                   >
                     <BiBookHeart className="header__icon" />
                     Courses
@@ -45,7 +45,7 @@ function Header(props) {
                     className={({ isActive }) =>
                       isActive ? "header__link header__link--isActive" : "header__link"
                     }
-                    to="posts"
+                    to="/posts"
                   >
                     <BiNews className="header__icon" />
                     Posts
@@ -58,7 +58,7 @@ function Header(props) {
                     className={({ isActive }) =>
                       isActive ? "header__link header__link--isActive" : "header__link"
                     }
-                    to="notes"
+                    to="/notes"
                   >
                     <BiNotepad className="header__icon" />
                     Notes
@@ -71,7 +71,7 @@ function Header(props) {
                     className={({ isActive }) =>
                       isActive ? "header__link header__link--isActive" : "header__link"
                     }
-                    to="account"
+                    to="/account"
                   >
                     <BiUserCircle className="header__icon" />
                     Account
