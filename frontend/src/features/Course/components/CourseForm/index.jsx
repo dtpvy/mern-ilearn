@@ -1,66 +1,64 @@
-import InputField from 'components/CustomFields/InputField';
-import { FastField, Form, Formik } from 'formik';
-import React, { useState } from 'react';
-import * as Yup from 'yup';
 import EditorField from 'components/CustomFields/EditorField';
+import InputField from 'components/CustomFields/InputField';
+import React from 'react';
+import { Button, Form, FormGroup } from 'reactstrap';
 
 function CourseForm(props) {
-  const { initialValues, handleValues } = props;
+  const { initialValues, handleValues, onSubmit, isAddMode } = props;
 
-  const validationSchema = Yup.object().shape({
-    title: Yup.string().required('This field is required.'),
-    description: Yup.string().required('This field is required.'),
-    hashtags: Yup.string(),
-    content: Yup.string().required('This field is required.')
-  });
-
-  // npm i --save react-select
   return (
-    <Formik
-      enableReinitialize={true}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-    >
+    <Form>
+      <InputField
+        name="title"
+        label="Tiêu đề"
+        type="text"
+        placeholder="Tiêu đề khóa học"
+        value={initialValues.title}
+        onChange={(title) => handleValues({ key: "title", value: title })}
+      />
 
-      {formikProps => {
-        return (
-          <Form>
-            <FastField
-              name="title"
-              component={InputField}
-              onChange={handleValues(formikProps.values)}
-              label="Tên Khóa học"
-              placeholder="Tên khóa học"
-            />
+      <InputField
+        name="description"
+        label="Mô tả"
+        type="text"
+        placeholder="Mô tả khóa học"
+        value={initialValues.description}
+        onChange={(description) => handleValues({ key: "description", value: description })}
+      />
 
-            <FastField
-              name="description"
-              component={InputField}
-              onChange={handleValues(formikProps.values)}
-              label="Mô tả"
-              placeholder="Mô tả khóa học"
-            />
+      <InputField
+        name="url"
+        label="Đường dẫn"
+        placeholder="Eg: google.com"
+        value={initialValues.url}
+        onChange={(url) => handleValues({ key: "url", value: url })}
+      />
 
-            <FastField
-              name="hashtags"
-              component={InputField}
-              onChange={handleValues(formikProps.values)}
-              label="Từ khóa"
-              placeholder="Eg: frontend, backend, other, ..."
-            />
+      <InputField
+        name="hashtags"
+        label="Từ khóa"
+        placeholder="Eg: frontend, backend, other, ..."
+        value={initialValues.hashtags}
+        onChange={(hashtags) => handleValues({ key: "hashtags", value: hashtags })}
+      />
 
-            <FastField
-              name="content"
-              component={EditorField}
+      <EditorField
+        name="content"
+        label="Nội dung"
+        value={initialValues.content}
+        onChange={(content) => handleValues({ key: "content", value: content })}
+      />
 
-              label="Nội dung"
-            />
-
-
-          </Form>
-        );
-      }}
-    </Formik>
+      <FormGroup>
+        <Button
+          onClick={onSubmit}
+          color={isAddMode ? "primary" : "secondary"}
+          outline
+        >
+          {isAddMode ? "Hoàn thành" : "Cập nhật"}
+        </Button>
+      </FormGroup>
+    </Form>
   );
 }
 

@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { showOne } from 'features/Course/CourseSlice';
 import DetailsItem from 'components/DetailsItem';
 import CourseForm from 'features/Course/components/CourseForm';
+import { addCourse, editCourse, showOne } from 'features/Course/CourseSlice';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import './AddEditPage.scss'
+import './AddEditPage.scss';
 
-function AddEditPage(props) {
+function AddEditPage() {
   const { id } = useParams();
   const isAddMode = !id;
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [view, setView] = useState(false);
@@ -21,45 +21,59 @@ function AddEditPage(props) {
     description: '',
     hashtags: '',
     content: '',
-    auth: {}
+    url: ''
   });
 
   const [newCourse, setNewCourse] = useState(initialValues);
-  const [course, setCourse] = useState({});
 
-  const handleChange = (course) => {
-    setNewCourse(course)
+  const handleChange = (value) => {
+    setNewCourse({
+      ...newCourse,
+      [value.key]: value.value
+    });
   }
 
   const handleView = () => {
-    setView(!view)
+    setView(!view);
+    if (view) setInitialValues(newCourse);
+  }
+
+  const handleSubmit = async () => {
+    let actionResult;
+    const course = {
+      ...newCourse,
+      hashtags: newCourse.hashtags === '' ? [] : newCourse.hashtags.split(', ')
+    }
+
+    if (isAddMode) {
+      actionResult = await dispatch(addCourse(course));
+    } else {
+      actionResult = await dispatch(editCourse(course));
+    }
+
+    const currentCourse = unwrapResult(actionResult);
+    navigate(`/courses/${currentCourse.courses._id}`);
   }
 
   const fetchData = useCallback(async () => {
     const actionResult = await dispatch(showOne(id));
     const currentCourse = unwrapResult(actionResult);
     const { courses } = currentCourse;
-
-    setInitialValues({
+    const init = {
       title: courses.title,
       description: courses.description,
       content: courses.content,
+      author: courses.author,
       hashtags: courses.hashtags.join(', ')
-    });
+    }
 
-    setNewCourse({
-      title: courses.title,
-      description: courses.description,
-      content: courses.content,
-      hashtags: courses.hashtags.join(', ')
-    });
-
-    setCourse(courses);
-  }, [dispatch]);
+    setNewCourse(init);
+    setInitialValues(init);
+  }, [dispatch, id]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    if (!isAddMode) fetchData();
+  }, [fetchData, isAddMode]);
 
   return (
     <div className="addEditCourse">
@@ -80,6 +94,8 @@ function AddEditPage(props) {
             <CourseForm
               initialValues={initialValues}
               handleValues={handleChange}
+              onSubmit={handleSubmit}
+              isAddMode={isAddMode}
             />
           </div>
         }
@@ -90,17 +106,13 @@ function AddEditPage(props) {
               item={{
                 ...newCourse,
                 hashtags: newCourse.hashtags === '' ? [] : newCourse.hashtags.split(', '),
-                author: course.author,
-                updatedAt: new Date
+                updatedAt: new Date()
               }}
-              action={{
-                auth: false
-              }}
+              action={{ auth: false }}
             />
           </div>
         }
       </div>
-
     </div >
   );
 }

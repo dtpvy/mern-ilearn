@@ -29,23 +29,24 @@ export const showOne = createAsyncThunk(
   }
 );
 
-export const add = createAsyncThunk(
-  'course/add',
-  async () => {
-    const response = await axios.get(`${apiUrl}/courses/add`);
-    const { success, message } = response.data;
-    return { error: !success, message };
+export const addCourse = createAsyncThunk(
+  'course/addCourse',
+  async (values) => {
+    const response = await axios.post(`${apiUrl}/courses/add`, values);
+    const { success, message, course } = response.data;
+    return { error: !success, message, courses: course };
   }
 );
 
-// export const edit = createAsyncThunk(
-//   'course/eidt',
-//   async () => {
-//     const response = await axios.get(`${apiUrl}/courses/:id/edit`);
-//     const { success, message } = response.data;
-//     return { error: !success, message };
-//   }
-// );
+export const editCourse = createAsyncThunk(
+  'course/editCourse',
+  async (values) => {
+    console.log(values);
+    const response = await axios.put(`${apiUrl}/courses/:id/edit`, values);
+    const { success, message, course } = response.data;
+    return { error: !success, message, courses: course };
+  }
+);
 
 // export const deleteCourse = createAsyncThunk(
 //   'course/deleteCourse',
@@ -102,13 +103,27 @@ const course = createSlice({
       };
       return newState;
     },
-    [add.pending]: (state) => {
+    [addCourse.pending]: (state) => {
       state.isLoading = true;
     },
-    [add.rejected]: (state, action) => {
+    [addCourse.rejected]: (state, action) => {
       state.isLoading = false;
     },
-    [add.fulfilled]: (state, action) => {
+    [addCourse.fulfilled]: (state, action) => {
+      const newState = {
+        ...state,
+        ...action.payload,
+        isLoading: false
+      };
+      return newState;
+    },
+    [editCourse.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [editCourse.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+    [editCourse.fulfilled]: (state, action) => {
       const newState = {
         ...state,
         ...action.payload,
@@ -119,6 +134,6 @@ const course = createSlice({
   }
 });
 
-const { reducer, actions } = course;
-const { filter } = actions;
+const { reducer } = course;
+// const { filter } = actions;
 export default reducer;

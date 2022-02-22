@@ -1,14 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import Avatar from 'components/Avatar';
-import './DetailsItem.scss';
 import Hashtag from 'components/Hashtag';
-import { BsThreeDotsVertical, BsPencilSquare, BsTrashFill } from "react-icons/bs";
+import React from 'react';
+import { BsPencilSquare, BsThreeDotsVertical, BsTrashFill } from "react-icons/bs";
+import './DetailsItem.scss';
 
 function DetailsItem(props) {
   const { item, action } = props;
   const date = new Date(item.updatedAt);
-  console.log(item.author);
+
   return (
     <div className="details">
       <h1 className="details__title">
@@ -55,7 +54,7 @@ function DetailsItem(props) {
       }
 
       {item.hashtags &&
-        <div className="details__row my-3">
+        <div div className="details__row my-3">
           {item.hashtags.map((hashtag, index) =>
             <Hashtag key={index} text={hashtag} />
           )}
@@ -65,8 +64,7 @@ function DetailsItem(props) {
         {item.description}
       </div>
 
-      <div className="details__content" >
-        {item.content}
+      <div className="details__content" dangerouslySetInnerHTML={{ __html: item.content }}>
       </div>
     </div >
   );
