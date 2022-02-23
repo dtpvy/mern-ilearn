@@ -33,7 +33,7 @@ function Dashboard(props) {
 
       <div className="dashboard--courses">
         <div className="dashboard__container">
-          <div className="dashboard--animation">
+          <div className="container dashboard--animation">
             <ListItem type="courses" title="Khóa học mới nhất" />
           </div>
         </div>
@@ -41,7 +41,7 @@ function Dashboard(props) {
 
       <div className="dashboard--posts">
         <div className="dashboard__container">
-          <div className="dashboard--animation">
+          <div className="container dashboard--animation">
             <ListItem type="courses" title="Bài viết mới nhất" />
           </div>
         </div>
