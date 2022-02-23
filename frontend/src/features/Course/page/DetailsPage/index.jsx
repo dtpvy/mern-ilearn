@@ -29,7 +29,7 @@ function DetailsPage(props) {
     const currentCourse = unwrapResult(actionResult);
 
     setCourse(currentCourse.courses);
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     fetchData();

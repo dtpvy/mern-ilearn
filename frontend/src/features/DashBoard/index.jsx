@@ -33,13 +33,17 @@ function Dashboard(props) {
 
       <div className="dashboard--courses">
         <div className="dashboard__container">
-          <ListItem type="courses" title="Khóa học mới nhất" />
+          <div className="dashboard--animation">
+            <ListItem type="courses" title="Khóa học mới nhất" />
+          </div>
         </div>
       </div>
 
       <div className="dashboard--posts">
         <div className="dashboard__container">
-          <ListItem type="courses" title="Bài viết mới nhất" />
+          <div className="dashboard--animation">
+            <ListItem type="courses" title="Bài viết mới nhất" />
+          </div>
         </div>
       </div>
     </div>

@@ -54,7 +54,7 @@ function DetailsItem(props) {
       }
 
       {item.hashtags &&
-        <div div className="details__row my-3">
+        <div className="details__row my-3">
           {item.hashtags.map((hashtag, index) =>
             <Hashtag key={index} text={hashtag} />
           )}

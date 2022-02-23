@@ -78,4 +78,9 @@
   &:hover {
     background-color: #ffffff;
   }
+
+  &__hashtags {
+    max-height: 3.8rem;
+    overflow: hidden;
+  }
 }

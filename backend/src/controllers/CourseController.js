@@ -47,14 +47,10 @@ class CourseController {
 
   // POST /add
   async addCourse(req, res) {
-    const { title, description, url, hashtags, content } = req.body;
+    const course = req.body;
     try {
       const newCourse = new Course({
-        title,
-        description,
-        url: url.startsWith('https://') ? url : `https://${url}`,
-        hashtags,
-        content,
+        ...course,
         author: req.userId
       });
 
@@ -69,22 +65,17 @@ class CourseController {
     }
   }
 
-  // PUT /:id
+  // PUT /:id/edit
   async updateCourse(req, res) {
-    const { title, description, url, hashtags, content, saved } = req.body;
+    const course = req.body;
+    console.log(course, req.params)
     try {
       const courseUpdateCondition = { _id: req.params.id, author: req.userId }
-
       const updatedAt = new Date();
 
       let updateCourse = {
-        title,
-        description,
-        url: url.startsWith('https://') ? url : `https://${url}`,
-        hashtags,
-        content,
-        updatedAt,
-        saved
+        ...course,
+        updatedAt
       };
 
       updateCourse = await Course.findOneAndUpdate(

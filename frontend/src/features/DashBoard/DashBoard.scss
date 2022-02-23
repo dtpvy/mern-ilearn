@@ -1,4 +1,8 @@
 .dashboard {
+  &--animation {
+    animation: rotatepart 3s ease-in-out;
+  }
+
   &--intro {
     background-color: #ff8080;
     color: white;
@@ -36,5 +40,14 @@
       margin-left: 30px;
       width: 60%;
     }
+  }
+}
+
+@keyframes rotatepart {
+  from {
+    transform: rotateY(180deg);
+  }
+  to {
+    transform: rotateY(360deg);
   }
 }

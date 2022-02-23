@@ -49,7 +49,7 @@ function ListItem(props) {
             <hr className="listitem__line"></hr>
           </div>
 
-          <div className="listitem__row">
+          <div className="listitem__row listitem__row--stretch">
             {items.map((item, index) =>
               <div
                 key={index}

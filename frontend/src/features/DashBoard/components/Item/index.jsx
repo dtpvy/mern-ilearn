@@ -38,7 +38,7 @@ function Item(props) {
         {title}
       </div>
 
-      <div className="item__row">
+      <div className="item__row item__hashtags">
         {hashtags.map((hashtag, index) =>
           <Hashtag key={index + 1} text={hashtag} />
         )}

@@ -60,31 +60,33 @@ function Slider(props) {
               <BsChevronDoubleRight className="slider__button" onClick={handleNext} />
             </div>
 
-            {items.map((item, index) =>
-              <div
-                key={index}
-                style={{ order: slide[index] }}
-                className={`slider__col ${(slide[index] > 2) ? 'slider__toggle--hide' : 'slider__toggle--show'}`}
-              >
+            <div className='slider__content'>
+              {items.map((item, index) =>
+                <div
+                  key={index}
+                  style={{ order: slide[index] }}
+                  className={`slider__col ${(slide[index] > 2) ? 'slider__toggle--hide' : 'slider__toggle--show'}`}
+                >
 
-                <Item
-                  id={item._id}
-                  type={type}
+                  <Item
+                    id={item._id}
+                    type={type}
 
-                  date={item.createdAt}
-                  author={item.author.displayName}
-                  title={item.title}
-                  hashtags={item.hashtags}
+                    date={item.createdAt}
+                    author={item.author.displayName}
+                    title={item.title}
+                    hashtags={item.hashtags}
 
-                  comment={item.comments.length}
-                  rate={(type === 'courses' && item.comments.length) ? caclRate(item.comments) : 0}
-                  saved={{
-                    active: item.saved.find(id => id === user._id),
-                    length: item.saved.length
-                  }}
-                />
-              </div>
-            )}
+                    comment={item.comments.length}
+                    rate={(type === 'courses' && item.comments.length) ? caclRate(item.comments) : 0}
+                    saved={{
+                      active: item.saved.find(id => id === user._id),
+                      length: item.saved.length
+                    }}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )

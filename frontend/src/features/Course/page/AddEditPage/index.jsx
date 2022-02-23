@@ -48,6 +48,7 @@ function AddEditPage() {
     if (isAddMode) {
       actionResult = await dispatch(addCourse(course));
     } else {
+      console.log(id);
       actionResult = await dispatch(editCourse(course));
     }
 
@@ -60,10 +61,11 @@ function AddEditPage() {
     const currentCourse = unwrapResult(actionResult);
     const { courses } = currentCourse;
     const init = {
+      _id: courses._id,
       title: courses.title,
       description: courses.description,
       content: courses.content,
-      author: courses.author,
+      url: courses.url,
       hashtags: courses.hashtags.join(', ')
     }
 

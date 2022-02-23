@@ -2,6 +2,7 @@
   &__col {
     width: 300px;
     margin: 0 5px;
+    display: grid;
   }
 
   &__title {
@@ -24,6 +25,10 @@
 
     align-items: center;
     justify-content: center;
+
+    &--stretch {
+      align-items: stretch;
+    }
   }
 
   &__button {

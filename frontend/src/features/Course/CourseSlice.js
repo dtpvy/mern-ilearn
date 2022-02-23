@@ -42,7 +42,7 @@ export const editCourse = createAsyncThunk(
   'course/editCourse',
   async (values) => {
     console.log(values);
-    const response = await axios.put(`${apiUrl}/courses/:id/edit`, values);
+    const response = await axios.put(`${apiUrl}/courses/${values._id}/edit`, values);
     const { success, message, course } = response.data;
     return { error: !success, message, courses: course };
   }
