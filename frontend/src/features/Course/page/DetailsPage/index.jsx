@@ -7,6 +7,7 @@ import { BiBookmark } from "react-icons/bi";
 import { BsChatText, BsFillBookmarkFill } from "react-icons/bs";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { deleteCourse } from 'features/Course/CourseSlice';
 import './DetailsPage.scss';
 
 function DetailsPage(props) {
@@ -20,8 +21,11 @@ function DetailsPage(props) {
     navigate(`/courses/${id}/edit`);
   }
 
-  const handleClickDelete = () => {
-    console.log("delete", id);
+  const handleClickDelete = async () => {
+    const actionResult = await dispatch(deleteCourse(id));
+    const res = unwrapResult(actionResult);
+    alert(res.error ? 'Xóa thất bại!' : 'Xóa thành công! Bài viết đã chuyển vào thùng rác');
+    navigate(`/courses`);
   }
 
   const fetchData = useCallback(async () => {

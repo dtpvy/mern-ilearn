@@ -13,10 +13,15 @@ const initialState = {
 
 export const show = createAsyncThunk(
   'course/show',
-  async (type, sort) => {
-    const response = await axios.get(`${apiUrl}/courses/`);
-    const { success, message, courses } = response.data;
-    return { error: !success, message, courses };
+  async (values) => {
+    let response;
+    if (values.search !== '') {
+      response = await axios.get(`${apiUrl}/courses?_sort&key=${values.key}&type=${values.type}&_search&name=${values.search}`);
+    } else {
+      response = await axios.get(`${apiUrl}/courses?_sort&key=${values.key}&type=${values.type}`);
+    }
+    const { success, courses } = response.data;
+    return { error: !success, courses };
   }
 );
 
@@ -24,8 +29,8 @@ export const showOne = createAsyncThunk(
   'course/showOne',
   async (id) => {
     const response = await axios.get(`${apiUrl}/courses/${id}`);
-    const { success, message, course } = response.data;
-    return { error: !success, message, courses: course };
+    const { success, course } = response.data;
+    return { error: !success, courses: course };
   }
 );
 
@@ -33,8 +38,8 @@ export const addCourse = createAsyncThunk(
   'course/addCourse',
   async (values) => {
     const response = await axios.post(`${apiUrl}/courses/add`, values);
-    const { success, message, course } = response.data;
-    return { error: !success, message, courses: course };
+    const { success, course } = response.data;
+    return { error: !success, courses: course };
   }
 );
 
@@ -43,19 +48,19 @@ export const editCourse = createAsyncThunk(
   async (values) => {
     console.log(values);
     const response = await axios.put(`${apiUrl}/courses/${values._id}/edit`, values);
-    const { success, message, course } = response.data;
-    return { error: !success, message, courses: course };
+    const { success, course } = response.data;
+    return { error: !success, courses: course };
   }
 );
 
-// export const deleteCourse = createAsyncThunk(
-//   'course/deleteCourse',
-//   async () => {
-//     const response = await axios.get(`${apiUrl}/courses/:id/edit`);
-//     const { success, message } = response.data;
-//     return { error: !success, message };
-//   }
-// );
+export const deleteCourse = createAsyncThunk(
+  'course/deleteCourse',
+  async (id) => {
+    const response = await axios.delete(`${apiUrl}/courses/${id}/delete`);
+    const { success } = response.data;
+    return { error: !success };
+  }
+);
 
 // export const deleteComment = createAsyncThunk(
 //   'course/deleteCourse',
@@ -70,9 +75,6 @@ const course = createSlice({
   name: 'course',
   initialState: initialState,
   reducers: {
-    filter: (state, action) => {
-      state.courses = action.payload;
-    }
   },
   extraReducers: {
     [show.pending]: (state) => {
@@ -130,10 +132,24 @@ const course = createSlice({
         isLoading: false
       };
       return newState;
+    },
+    [deleteCourse.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteCourse.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = true;
+    },
+    [deleteCourse.fulfilled]: (state, action) => {
+      const newState = {
+        ...state,
+        ...action.payload,
+        isLoading: false
+      };
+      return newState;
     }
   }
 });
 
 const { reducer } = course;
-// const { filter } = actions;
 export default reducer;

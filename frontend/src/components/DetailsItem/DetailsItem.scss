@@ -41,6 +41,7 @@
     font-size: 20px;
     color: #787878;
     margin-left: auto;
+    background-color: #fff;
 
     position: relative;
 
@@ -87,7 +88,9 @@
     display: flex;
     padding: 10px 16px;
     align-items: center;
+
     justify-content: space-between;
+    background-color: #fff;
 
     &:first-child {
       border-top-left-radius: 5px;

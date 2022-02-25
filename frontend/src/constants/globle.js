@@ -2,16 +2,16 @@ export const NUM_OF_DASHBOARD_SLIDER = 6;
 
 export const SORT_TYPE = [
   {
-    key: 0,
+    key: 'desc',
     value: "Giảm dần"
   },
   {
-    key: 1,
+    key: 'asc',
     value: "Tăng dần"
   }
 ]
 
-export const SORT_TYPE_COURSES = [
+export const SORT_KEY_COURSES = [
   {
     key: 0,
     value: "Ngày cập nhật"

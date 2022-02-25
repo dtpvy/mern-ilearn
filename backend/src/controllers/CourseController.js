@@ -16,7 +16,7 @@ class CourseController {
   // GET /
   async showAll(req, res) {
     try {
-      const courses = await Course.find({}).populate('author');
+      const courses = await Course.find({}).populate('author').sortable(req).search(req);
       res.json({ success: true, courses })
     } catch (error) {
       console.log(error)
@@ -53,8 +53,6 @@ class CourseController {
         ...course,
         author: req.userId
       });
-
-      console.log(newCourse);
 
       await newCourse.save();
 
@@ -156,7 +154,6 @@ class CourseController {
       .then(() => res.json({ success: true, message: 'Delete success!' }))
       .catch(() => res.status(500).json({ success: false, message: 'Internal server error' }));
   }
-
 };
 
 module.exports = new CourseController();

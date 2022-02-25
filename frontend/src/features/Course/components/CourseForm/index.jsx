@@ -51,6 +51,7 @@ function CourseForm(props) {
 
       <FormGroup>
         <Button
+          type='button'
           onClick={onSubmit}
           color={isAddMode ? "primary" : "secondary"}
           outline

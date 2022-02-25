@@ -1,36 +1,32 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import { SORT_TYPE, SORT_TYPE_COURSES } from 'constants/globle';
-import ListCourses from 'features/Course/components/ListCourses';
+import { SORT_KEY_COURSES, SORT_TYPE } from 'constants/globle';
 import GridCourses from 'features/Course/components/GridCourses';
+import ListCourses from 'features/Course/components/ListCourses';
 import { show } from 'features/Course/CourseSlice';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BsGridFill, BsSearch, BsViewList } from "react-icons/bs";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './MainPage.scss';
 
-MainPage.propTypes = {
-
-};
-
-function MainPage(props) {
+function MainPage() {
   const dispatch = useDispatch();
-  const [type, setType] = useState(0);
-  const [sort, setSort] = useState(0);
+  const [type, setType] = useState('desc');
+  const [key, setKey] = useState(0);
   const [view, setView] = useState('grid');
+  const [search, setSearch] = useState('');
   const [focus, setFocus] = useState(false);
   const [courses, setCourses] = useState([]);
-  const { hashtags } = useSelector(state => state.course);
 
-  const handleChangeSortType = (value) => {
+  const handleChangeType = (value) => {
     setType(value);
   }
 
-  const handleChangeSort = (value) => {
-    setSort(value);
+  const handleChangeKey = (value) => {
+    setKey(value);
   }
 
   const handleChangeSearch = (value) => {
-    console.log(value);
+    setSearch(value);
   }
 
   const handleFocusSearch = () => {
@@ -39,7 +35,6 @@ function MainPage(props) {
 
   const handleBlurSearch = () => {
     setFocus(false);
-    console.log("blur");
   }
 
   const handleChangeView = (view) => {
@@ -47,11 +42,11 @@ function MainPage(props) {
   }
 
   const fetchData = useCallback(async () => {
-    const actionResult = await dispatch(show(1, 1));
-    const currentUser = unwrapResult(actionResult);
+    const actionResult = await dispatch(show({ type, key, search }));
+    const currentCourse = unwrapResult(actionResult);
 
-    setCourses(currentUser.courses);
-  }, [dispatch]);
+    setCourses(currentCourse.courses);
+  }, [dispatch, key, type, search]);
 
   useEffect(() => {
     fetchData();
@@ -73,16 +68,7 @@ function MainPage(props) {
           onBlur={handleBlurSearch}
         />
       </div>
-      <div className="container courses__hashtags courses__sort">
-        <div className="courses__hashtag">
-          hi
-        </div>
-        {hashtags.map((hashtag, index) =>
-          <div key={index} className="courses__hashtag">
-            {hashtag}
-          </div>
-        )}
-      </div>
+
       <div className="container my-5">
         <div className="d-flex justify-content-between">
           <div>
@@ -91,13 +77,13 @@ function MainPage(props) {
 
           <div className="courses__form-group">
             <div className="d-flex">
-              <select className="courses__form" onChange={(e) => handleChangeSortType(e.target.value)}>
-                {SORT_TYPE_COURSES.map((type) =>
+              <select className="courses__form" onChange={(e) => handleChangeKey(e.target.value)}>
+                {SORT_KEY_COURSES.map((type) =>
                   <option key={type.key} value={type.key} > {type.value} </option>
                 )}
               </select>
 
-              <select className="courses__form" onChange={(e) => handleChangeSort(e.target.value)}>
+              <select className="courses__form" onChange={(e) => handleChangeType(e.target.value)}>
                 {SORT_TYPE.map((type) =>
                   <option key={type.key} value={type.key} > {type.value} </option>
                 )}
@@ -120,8 +106,8 @@ function MainPage(props) {
           </div>
         </div>
 
-        <div className="container my-5">
-          {view == 'grid' ?
+        <div className="my-5">
+          {view === 'grid' ?
             <GridCourses courses={courses} />
             : <ListCourses courses={courses} />
           }

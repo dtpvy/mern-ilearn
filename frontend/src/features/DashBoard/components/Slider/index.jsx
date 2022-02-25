@@ -35,6 +35,7 @@ function Slider(props) {
     const actionResult = await dispatch(courses());
     const currentUser = unwrapResult(actionResult);
 
+    setSlide(slide.filter(x => x < currentUser.courses.length))
     setItems(currentUser.courses);;
     setLoading(false);
   }, [dispatch]);

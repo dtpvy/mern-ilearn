@@ -44,11 +44,11 @@ function AddEditPage() {
       ...newCourse,
       hashtags: newCourse.hashtags === '' ? [] : newCourse.hashtags.split(', ')
     }
-
+    console.log("check add");
     if (isAddMode) {
+      console.log("add");
       actionResult = await dispatch(addCourse(course));
     } else {
-      console.log(id);
       actionResult = await dispatch(editCourse(course));
     }
 

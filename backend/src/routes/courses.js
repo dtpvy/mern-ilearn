@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middleware/auth');
+const SortMiddleware = require('../middleware/sort');
+const SearchMiddleware = require('../middleware/search');
 const courseController = require('../controllers/CourseController');
 
 // show trash
@@ -10,7 +12,7 @@ router.get('/home/:num', courseController.showHomePage);
 // show detail course
 router.get('/:id', courseController.showCourse);
 // show all course
-router.get('/', courseController.showAll);
+router.get('/', SortMiddleware, SearchMiddleware, courseController.showAll);
 //add a course
 router.post('/add', verifyToken, courseController.addCourse);
 //add a comment
